@@ -62,7 +62,7 @@ This project is a RESTful API built with Laravel that provides full CRUD operati
 | `password`     | string | Yes (create), Optional (update) | Minimum 8 characters   |
 
 
-📂 Assumptions and Design Choices
+📂 **Assumptions and Design Choices**
 No Authentication: All endpoints are publicly accessible for demonstration purposes.
 
 Soft Deletes: Users are soft deleted, allowing for possible future restoration.
@@ -79,12 +79,12 @@ Status Handling: status field is a string (active or inactive) stored directly i
 
 Password Hashing: Passwords are automatically hashed when provided.
 
-🧪 Running Tests
+🧪 **Running Tests**
+
 Ensure the test environment is configured and run:
-
-bash
+```bash
 php artisan test
-
+```
 📎 Dependencies
 Laravel 10+
 
