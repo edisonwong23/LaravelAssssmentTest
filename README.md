@@ -42,6 +42,7 @@ This project is a RESTful API built with Laravel that provides full CRUD operati
     ```bash
     $ php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
     $ php artisan l5-swagger:generate
+## 
 | Method | Endpoint                | Description                                 |
 | ------ | ----------------------- | ------------------------------------------- |
 | GET    | `/api/users`            | List users with optional filter by `status` |
@@ -62,7 +63,7 @@ This project is a RESTful API built with Laravel that provides full CRUD operati
 | `password`     | string | Yes (create), Optional (update) | Minimum 8 characters   |
 
 
-📂 **Assumptions and Design Choices**
+## 📂 **Assumptions and Design Choices**
 No Authentication: All endpoints are publicly accessible for demonstration purposes.
 
 Soft Deletes: Users are soft deleted, allowing for possible future restoration.
@@ -79,7 +80,19 @@ Status Handling: status field is a string (active or inactive) stored directly i
 
 Password Hashing: Passwords are automatically hashed when provided.
 
-🧪 **Running Tests**
+## ✅ Documentation
+
+- The API is documented using Swagger UI and available at:  
+  [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation)
+
+- All endpoints include parameters, responses, and schema references.
+
+- Setup and usage instructions are provided in this README.
+
+This ensures that the project is easily understandable, installable, and testable by any developer.
+
+
+## 🧪 **Running Tests**
 
 Ensure the test environment is configured and run:
 ```bash
