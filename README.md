@@ -42,44 +42,35 @@ This project is a RESTful API built with Laravel that provides full CRUD operati
     ```bash
     $ php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
     $ php artisan l5-swagger:generate
-## 
-| Method | Endpoint                | Description                                 |
-| ------ | ----------------------- | ------------------------------------------- |
-| GET    | `/api/users`            | List users with optional filter by `status` |
-| POST   | `/api/users`            | Create a new user                           |
-| GET    | `/api/users/{id}`       | Show a specific user                        |
-| PUT    | `/api/users/{id}`       | Update a user                               |
-| DELETE | `/api/users/{id}`       | Soft delete a user                          |
-| POST   | `/api/users/bulkdelete` | Bulk soft delete users                      |
-| GET    | `/api/users/export`     | Export users to Excel                       |
-
-
-| Field          | Type   | Required                        | Notes                  |
-| -------------- | ------ | ------------------------------- | ---------------------- |
-| `name`         | string | Yes                             |                        |
-| `email`        | string | Yes                             | Must be unique         |
-| `phone_number` | string | Yes                             | Must be unique         |
-| `status`       | string | Yes                             | `active` or `inactive` |
-| `password`     | string | Yes (create), Optional (update) | Minimum 8 characters   |
-
+## 📚 API Endpoints Documentation
+| Method | Endpoint                | Description                  | Request Body / Query Params                                                        | Response                      |
+| ------ | ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------- | ----------------------------- |
+| GET    | `/api/users`            | List all users               | Optional: `status` (query) to filter by active/inactive                            | JSON array of users           |
+| POST   | `/api/users`            | Create a new user            | JSON with `name`, `email`, `phone_number`, `password`, `status`                    | Created user data + message   |
+| GET    | `/api/users/{id}`       | Get details of a single user | None                                                                               | User data                     |
+| PUT    | `/api/users/{id}`       | Update an existing user      | JSON with fields to update (`name`, `email`, `phone_number`, `password`, `status`) | Updated user data + message   |
+| DELETE | `/api/users/{id}`       | Soft delete a user           | None                                                                               | Deletion confirmation message |
+| POST   | `/api/users/bulkdelete` | Bulk delete users            | JSON with `ids` array of user IDs                                                  | Bulk deletion confirmation    |
+| GET    | `/api/users/export`     | Export users to Excel file   | None                                                                               | Excel file download           |
 
 ## 📂 **Assumptions and Design Choices**
-No Authentication: All endpoints are publicly accessible for demonstration purposes.
+Soft Deletes: Users are soft deleted to allow recovery if needed and to maintain historical data integrity.
 
-Soft Deletes: Users are soft deleted, allowing for possible future restoration.
+Validation: Strict validation rules are applied on user data (email uniqueness, phone number uniqueness, required fields) to ensure data consistency.
 
-Validation Requests: Laravel FormRequest classes are used to handle validation logic cleanly.
+Password Handling: Passwords are hashed securely using bcrypt before storage; password updates are optional.
 
-Bulk Operations: Bulk deletion accepts a JSON array of IDs.
+API Resource Routing: Used Laravel resource routes for RESTful API design to standardize endpoints.
 
-Excel Export: Data can be exported using Laravel Excel.
+Bulk Delete: Provided bulk delete functionality via a POST endpoint for efficient batch operations.
 
-Testing: Feature and unit tests are included for core functionality.
+Filtering and Pagination: Filtering by status is supported to allow clients to query active or inactive users; pagination can be added as needed.
 
-Status Handling: status field is a string (active or inactive) stored directly in the database.
+Export to Excel: Users can be exported to Excel format for reporting and data analysis.
 
-Password Hashing: Passwords are automatically hashed when provided.
+No Authentication: API endpoints are publicly accessible for simplicity in this implementation; adding authentication is recommended for production.
 
+Error Handling: Validation errors return HTTP 422 with descriptive messages; missing data or invalid requests respond with appropriate status codes.
 ## ✅ Documentation
 
 - The API is documented using Swagger UI and available at:  
@@ -98,16 +89,12 @@ Ensure the test environment is configured and run:
 ```bash
 php artisan test
 ```
-📎 Dependencies
-Laravel 10+
-
-Laravel Excel
-
-PHP 8.1+
-
-SQLite (for testing)
-
-PHPUnit
+## 📎 Dependencies
+- PHP 8.1+
+- Laravel 10+
+- Laravel Excel
+- PHPUnit
+- MySQL (used for both development and testing)
 
 
 ---
