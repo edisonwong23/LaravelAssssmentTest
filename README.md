@@ -98,5 +98,3 @@ php artisan test
 
 
 ---
-
-Let me know if you want it customized further (e.g., links, Postman collection, or GitHub Actions for CI).
